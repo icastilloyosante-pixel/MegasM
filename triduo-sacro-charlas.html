@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Triduo Sacro — Guía de Charlas</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --negro: #0d0b0a;
+    --blanco: #faf7f2;
+    --crema: #f0e8d8;
+    --oro: #c9992a;
+    --oro-claro: #f0c850;
+    --rojo: #8b1a1a;
+    --rojo-suave: #c0392b;
+    --azul-noche: #1a2035;
+    --gris: #5a5550;
+    --verde-resurreccion: #2d6a4f;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--negro);
+    color: var(--blanco);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ====== HERO ====== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    background: radial-gradient(ellipse at 50% 60%, #1a0a00 0%, var(--negro) 70%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9992a' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.5;
+  }
+
+  .llama {
+    font-size: 4rem;
+    animation: flamear 2s ease-in-out infinite alternate;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  @keyframes flamear {
+    from { transform: scale(1) rotate(-2deg); filter: drop-shadow(0 0 15px #c9992a); }
+    to { transform: scale(1.1) rotate(2deg); filter: drop-shadow(0 0 30px #f0c850); }
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--oro);
+    position: relative;
+    z-index: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    font-weight: 900;
+    line-height: 1;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 1rem;
+  }
+
+  .hero h1 span {
+    color: var(--oro);
+    font-style: italic;
+    display: block;
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: #a09585;
+    max-width: 500px;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 3rem;
+  }
+
+  .nav-charlas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .nav-btn {
+    padding: 0.75rem 1.75rem;
+    border: 1px solid;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+    background: transparent;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .nav-btn-1 { border-color: var(--oro); color: var(--oro); }
+  .nav-btn-1:hover { background: var(--oro); color: var(--negro); }
+  .nav-btn-2 { border-color: var(--rojo-suave); color: var(--rojo-suave); }
+  .nav-btn-2:hover { background: var(--rojo-suave); color: var(--blanco); }
+  .nav-btn-3 { border-color: #6b4c7a; color: #a07ab8; }
+  .nav-btn-3:hover { background: #6b4c7a; color: var(--blanco); }
+  .nav-btn-4 { border-color: var(--verde-resurreccion); color: #5aad82; }
+  .nav-btn-4:hover { background: var(--verde-resurreccion); color: var(--blanco); }
+
+  /* ====== LAYOUT CHARLAS ====== */
+  .charla {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+    display: none;
+  }
+
+  .charla.activa { display: block; }
+
+  .charla-header {
+    margin-bottom: 4rem;
+    position: relative;
+    padding-bottom: 2rem;
+  }
+
+  .charla-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 80px;
+  }
+
+  .charla-1 .charla-header::after { background: var(--oro); }
+  .charla-2 .charla-header::after { background: var(--rojo-suave); }
+  .charla-3 .charla-header::after { background: #8b5f9e; }
+  .charla-4 .charla-header::after { background: var(--verde-resurreccion); }
+
+  .charla-numero {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .charla-1 .charla-numero { color: var(--oro); }
+  .charla-2 .charla-numero { color: var(--rojo-suave); }
+  .charla-3 .charla-numero { color: #a07ab8; }
+  .charla-4 .charla-numero { color: #5aad82; }
+
+  .charla h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--blanco);
+    margin-bottom: 0.5rem;
+  }
+
+  .charla-emoji { font-size: 2.5rem; }
+  .charla-tiempo {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--gris);
+    margin-top: 1rem;
+    letter-spacing: 0.1em;
+  }
+
+  /* ====== SECCIONES ====== */
+  .seccion {
+    margin-bottom: 3.5rem;
+  }
+
+  .seccion-titulo {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gris);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .seccion-titulo::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #2a2520;
+  }
+
+  /* PREGUNTA LANZADERA */
+  .pregunta-lanzadera {
+    background: #13100c;
+    border-left: 3px solid var(--oro);
+    padding: 2rem 2.5rem;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .charla-2 .pregunta-lanzadera { border-left-color: var(--rojo-suave); }
+  .charla-3 .pregunta-lanzadera { border-left-color: #8b5f9e; }
+  .charla-4 .pregunta-lanzadera { border-left-color: var(--verde-resurreccion); }
+
+  .pregunta-lanzadera .q-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--oro);
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .charla-2 .pregunta-lanzadera .q-label { color: var(--rojo-suave); }
+  .charla-3 .pregunta-lanzadera .q-label { color: #a07ab8; }
+  .charla-4 .pregunta-lanzadera .q-label { color: #5aad82; }
+
+  .pregunta-lanzadera p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--crema);
+  }
+
+  /* PIZARRON */
+  .pizarron {
+    background: #0a1a0e;
+    border: 1px solid #1d3a25;
+    border-radius: 8px;
+    padding: 2.5rem;
+    font-family: 'DM Mono', monospace;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pizarron::before {
+    content: '🖊 PIZARRÓN';
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    color: #2d5a3a;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .pizarron-item {
+    color: #7ec89a;
+    font-size: 0.95rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px dashed #1d3a25;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .pizarron-item:last-child { border-bottom: none; }
+
+  .pizarron-item .key {
+    color: #4a9e6a;
+    min-width: 2rem;
+  }
+
+  /* BLOQUES DE CONTENIDO */
+  .bloque {
+    background: #0f0d0b;
+    border-radius: 8px;
+    padding: 2rem 2.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #1e1a16;
+  }
+
+  .bloque h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--crema);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .bloque p {
+    color: #b0a898;
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .bloque p:last-child { margin-bottom: 0; }
+
+  .bloque ul {
+    list-style: none;
+    color: #b0a898;
+    font-size: 0.95rem;
+  }
+
+  .bloque ul li {
+    padding: 0.35rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .bloque ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--gris);
+  }
+
+  /* DINAMICA */
+  .dinamica {
+    background: linear-gradient(135deg, #1a1000 0%, #0f0d0b 100%);
+    border: 1px solid #3a2800;
+    border-radius: 8px;
+    padding: 2rem 2.5rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+
+  .dinamica-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--oro);
+    background: #2a1800;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    border: 1px solid #3a2800;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+
+  .dinamica h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--crema);
+    margin-bottom: 0.75rem;
+  }
+
+  .dinamica p, .dinamica li {
+    color: #b0a898;
+    font-size: 0.95rem;
+  }
+
+  .dinamica ul { list-style: none; }
+  .dinamica ul li { padding: 0.3rem 0; padding-left: 1.5rem; position: relative; }
+  .dinamica ul li::before { content: '→'; position: absolute; left: 0; color: var(--oro); }
+
+  /* DATO LOCO */
+  .dato-loco {
+    background: #0a0f1a;
+    border: 1px solid #1a2540;
+    border-radius: 8px;
+    padding: 1.75rem 2.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .dato-loco .icono { font-size: 2rem; flex-shrink: 0; }
+
+  .dato-loco .texto {
+    font-size: 0.92rem;
+    color: #8a9ab8;
+    line-height: 1.7;
+  }
+
+  .dato-loco .texto strong { color: var(--blanco); }
+
+  /* CIERRE */
+  .cierre {
+    margin-top: 4rem;
+    padding: 3rem;
+    background: #0f0d0b;
+    border-radius: 12px;
+    border-top: 2px solid;
+    text-align: center;
+  }
+
+  .charla-1 .cierre { border-top-color: var(--oro); }
+  .charla-2 .cierre { border-top-color: var(--rojo-suave); }
+  .charla-3 .cierre { border-top-color: #8b5f9e; }
+  .charla-4 .cierre { border-top-color: var(--verde-resurreccion); }
+
+  .cierre-frase {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--crema);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+
+  .cierre-fuente {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--gris);
+    letter-spacing: 0.1em;
+  }
+
+  /* BACK BTN */
+  .back-btn {
+    position: fixed;
+    top: 1.5rem;
+    left: 1.5rem;
+    background: #1a1612;
+    border: 1px solid #2a2520;
+    color: var(--gris);
+    padding: 0.6rem 1.25rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    transition: all 0.2s;
+    z-index: 100;
+    display: none;
+  }
+
+  .back-btn:hover { color: var(--blanco); border-color: var(--gris); }
+  .back-btn.visible { display: block; }
+
+  /* LINEA DE TIEMPO */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 1.5rem 0;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 1.5rem;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: #2a2520;
+  }
+
+  .tl-item {
+    display: flex;
+    gap: 2rem;
+    padding: 1.25rem 0 1.25rem 4rem;
+    position: relative;
+  }
+
+  .tl-dot {
+    position: absolute;
+    left: 1.1rem;
+    top: 1.5rem;
+    width: 0.85rem;
+    height: 0.85rem;
+    border-radius: 50%;
+    background: var(--gris);
+    border: 2px solid var(--negro);
+  }
+
+  .tl-time {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--gris);
+    min-width: 80px;
+    padding-top: 0.2rem;
+    letter-spacing: 0.05em;
+  }
+
+  .tl-content h5 {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--crema);
+    margin-bottom: 0.3rem;
+  }
+
+  .tl-content p {
+    font-size: 0.85rem;
+    color: #7a7068;
+  }
+
+  /* QUOTE */
+  .quote-block {
+    border-left: 2px solid var(--oro);
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+    background: #0f0d0b;
+    border-radius: 0 8px 8px 0;
+  }
+
+  .charla-2 .quote-block { border-left-color: var(--rojo-suave); }
+  .charla-3 .quote-block { border-left-color: #8b5f9e; }
+  .charla-4 .quote-block { border-left-color: var(--verde-resurreccion); }
+
+  .quote-block p {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--crema);
+    margin-bottom: 0.5rem;
+  }
+
+  .quote-block cite {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--gris);
+    letter-spacing: 0.1em;
+    font-style: normal;
+  }
+
+  /* HIGHLIGHT */
+  .highlight {
+    color: var(--oro);
+    font-weight: 500;
+  }
+
+  .charla-2 .highlight { color: #e07070; }
+  .charla-3 .highlight { color: #c09ad0; }
+  .charla-4 .highlight { color: #70c090; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .charla { padding: 5rem 1.25rem; }
+    .pizarron, .bloque, .dinamica, .dato-loco { padding: 1.5rem; }
+    .tl-item { padding-left: 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<button class="back-btn" id="backBtn" onclick="volverHome()">← Volver</button>
+
+<!-- HOME -->
+<section id="home" class="hero">
+  <div class="llama">🕯️</div>
+  <span class="hero-eyebrow">Juventud Misionera · Regnum Christi · Mega Misiones</span>
+  <h1>El Triduo<span>Sacro</span></h1>
+  <p class="hero-sub">Guía de charlas para acompañar a los misioneros antes de las celebraciones. 20–30 minutos. Sin diapositivas aburridas.</p>
+  <div class="nav-charlas">
+    <button class="nav-btn nav-btn-1" onclick="mostrar('charla1')">🍞 Charla 1 · Jueves Santo</button>
+    <button class="nav-btn nav-btn-2" onclick="mostrar('charla2')">✝️ Charla 2 · Viernes Santo</button>
+    <button class="nav-btn nav-btn-3" onclick="mostrar('charla3')">🌑 Charla 3 · Sábado Santo</button>
+    <button class="nav-btn nav-btn-4" onclick="mostrar('charla4')">☀️ Bonus · Domingo de Pascua</button>
+  </div>
+</section>
+
+<!-- ===================== CHARLA 1: JUEVES SANTO ===================== -->
+<section id="charla1" class="charla charla-1">
+  <div class="charla-header">
+    <span class="charla-numero">Charla 01 / 03 — Jueves Santo</span>
+    <h2>La noche en que<br>todo cambió</h2>
+    <span class="charla-emoji">🍞🍷👣</span>
+    <div class="charla-tiempo">⏱ 20–30 min · Pizarrón disponible</div>
+  </div>
+
+  <!-- PREGUNTA LANZADERA -->
+  <div class="seccion">
+    <div class="seccion-titulo">Arranque</div>
+    <div class="pregunta-lanzadera">
+      <span class="q-label">Pregunta para tirar al grupo</span>
+      <p>"¿Cuál fue la última cena que compartiste con alguien que te importa mucho? ¿Qué se dijo en esa cena?"</p>
+    </div>
+    <div class="bloque">
+      <p>Dejá que 2 o 3 hablen. Después conectás: <em class="highlight">"Jesús hizo exactamente eso la noche del Jueves Santo. Solo que sabiendo que iba a morir al día siguiente."</em></p>
+    </div>
+  </div>
+
+  <!-- QUÉ ES EL TRIDUO -->
+  <div class="seccion">
+    <div class="seccion-titulo">Contexto rápido — anotar en el pizarrón</div>
+    <div class="pizarron">
+      <div class="pizarron-item"><span class="key">JUE</span> Última Cena + Lavado de pies + Institución de la Eucaristía</div>
+      <div class="pizarron-item"><span class="key">VIE</span> Pasión y muerte de Cristo</div>
+      <div class="pizarron-item"><span class="key">SÁB</span> El silencio. El sepulcro. La espera.</div>
+      <div class="pizarron-item"><span class="key">DOM</span> Resurrección — FIN DEL AYUNO</div>
+      <div class="pizarron-item" style="color:#5a5550; font-size:0.8rem">* Son tres días litúrgicos contados al modo judío: de puesta de sol a puesta de sol</div>
+    </div>
+  </div>
+
+  <!-- CONTENIDO JUEVES -->
+  <div class="seccion">
+    <div class="seccion-titulo">El núcleo de la charla</div>
+
+    <div class="bloque">
+      <h4>🍞 La Eucaristía: no es un recuerdo, es una presencia</h4>
+      <p>Esa noche Jesús toma pan y vino y dice algo que dejó a todos con cara de "¿qué?": <em>"Esto es mi cuerpo... Esta es mi sangre."</em> No dijo "esto representa", dijo "esto ES".</p>
+      <p>Para los que ya son católicos: la Misa no es un teatro donde recordamos algo que pasó hace 2000 años. Es el mismo sacrificio hecho presente. Cada vez.</p>
+      <p>Para los que están conociendo la fe: imaginate que alguien que amás, antes de irse para siempre, te deja algo de sí mismo para que puedas seguir encontrándolo. Eso es la Eucaristía.</p>
+    </div>
+
+    <div class="bloque">
+      <h4>👣 El lavado de pies: el escándalo del servicio</h4>
+      <p>Pedro no lo podía creer. El maestro, el Mesías, arrodillado lavando pies sucios. En la cultura de la época, eso lo hacían los esclavos más bajos.</p>
+      <p>Jesús da vuelta el poder al revés. <span class="highlight">El que manda sirve. El que lidera se pone de rodillas.</span></p>
+      <p>Pregunta para el grupo: <em>"¿A quién le lavarías los pies con gusto? ¿A quién NO le lavarías? Ahí está el desafío."</em></p>
+    </div>
+
+    <div class="bloque">
+      <h4>🌿 Getsemaní: el miedo de Dios</h4>
+      <p>Después de cenar, van al huerto. Y acá pasa algo increíble: Jesús, que ES Dios, tiene miedo. <em>"Padre, si es posible, que pase de mí este cáliz."</em></p>
+      <p>Dios tiene miedo. Dios suda sangre. Dios necesita compañía y sus amigos se duermen.</p>
+      <p class="highlight">Si alguna vez sentiste que tu fe te falla justo cuando más la necesitás, sos igual que los apóstoles esa noche.</p>
+    </div>
+  </div>
+
+  <!-- DATO LOCO -->
+  <div class="seccion">
+    <div class="seccion-titulo">Dato que nadie sabe</div>
+    <div class="dato-loco">
+      <span class="icono">🫙</span>
+      <div class="texto">La Última Cena era una <strong>Seder de Pascua judía</strong> — la misma cena que los judíos siguen celebrando hoy. Jesús tomó ese ritual de siglos (que conmemoraba el Éxodo) y lo resignificó completamente. No anuló la historia de Israel, la cumplió. <strong>El Cordero de la Pascua judía ya no es un animal: es Él.</strong></div>
+    </div>
+  </div>
+
+  <!-- CONEXIÓN MISIONES -->
+  <div class="seccion">
+    <div class="seccion-titulo">Conexión directa con sus misiones</div>
+    <div class="dinamica">
+      <span class="dinamica-badge">💬 Para decirles</span>
+      <h4>¿Por qué importa en misiones?</h4>
+      <p>Cuando estén en la comunidad y celebren la Misa del Jueves Santo, van a ver el lavatorio de pies. No es teatro. El sacerdote va a arrodillarse frente a personas de esa comunidad. Ustedes pueden ser parte de eso — no como espectadores, sino preguntándose: <em>"¿A quién le estoy lavando los pies esta semana? ¿A quién estoy sirviendo de verdad?"</em></p>
+      <p style="margin-top:0.75rem">La Eucaristía de esa noche es especial: termina sin el cierre habitual. El sacerdote lleva el Santísimo en silencio y los fieles van a adorarlo. Es como si la celebración quedara... suspendida. Incompleta. Porque falta el Viernes.</p>
+    </div>
+  </div>
+
+  <!-- CIERRE -->
+  <div class="cierre">
+    <p class="cierre-frase">"Nadie tiene amor más grande que el que da su vida por sus amigos."</p>
+    <span class="cierre-fuente">Juan 15, 13 — dicho esa misma noche</span>
+  </div>
+</section>
+
+<!-- ===================== CHARLA 2: VIERNES SANTO ===================== -->
+<section id="charla2" class="charla charla-2">
+  <div class="charla-header">
+    <span class="charla-numero">Charla 02 / 03 — Viernes Santo</span>
+    <h2>El día que Dios<br>se dejó matar</h2>
+    <span class="charla-emoji">✝️🩸😶</span>
+    <div class="charla-tiempo">⏱ 20–30 min · Pizarrón disponible</div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-titulo">Arranque</div>
+    <div class="pregunta-lanzadera">
+      <span class="q-label">Pregunta para tirar al grupo</span>
+      <p>"¿Vieron alguna vez algo profundamente injusto y no pudieron hacer nada? ¿Cómo se sintieron?"</p>
+    </div>
+    <div class="bloque">
+      <p>Dejá que hablen. Luego: <em class="highlight">"El Viernes Santo es el día más injusto de la historia. Y fue necesario."</em></p>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-titulo">Lo que pasó — de manera honesta</div>
+
+    <div class="bloque">
+      <h4>🏛️ El juicio: una farsa</h4>
+      <p>Pilato lo encontró inocente <strong>tres veces</strong>. Lo dijo en voz alta. Y aun así lo entregó. El poder político cediendo ante la presión de la multitud. ¿Les suena familiar?</p>
+      <p>Jesús no se defiende. No porque no pueda, sino porque elige no hacerlo. <span class="highlight">El poder real es el que no necesita demostrarse.</span></p>
+    </div>
+
+    <div class="bloque">
+      <h4>🩸 La crucifixión: sin suavizar</h4>
+      <p>La crucifixión era la peor muerte que el Imperio Romano había inventado. Diseñada para humillar, para tardar, para que todo el mundo la viera. No era solo dolor físico: era vergüenza pública total.</p>
+      <p>¿Por qué importa que no lo suavicemos? Porque si minimizamos el sufrimiento, minimizamos el amor. <span class="highlight">Si fue poco, fue fácil. Fue todo lo contrario.</span></p>
+    </div>
+
+    <div class="bloque">
+      <h4>😶 Las siete palabras desde la Cruz</h4>
+      <ul>
+        <li>"Padre, perdónalos, porque no saben lo que hacen." — incluso ahí, perdona</li>
+        <li>"Hoy estarás conmigo en el Paraíso." — al ladrón. No hizo nada para merecerlo.</li>
+        <li>"Mujer, ahí tenés a tu hijo." — cuida de su madre desde la Cruz</li>
+        <li>"Dios mío, ¿por qué me has abandonado?" — el grito más humano de la historia</li>
+        <li>"Tengo sed." — su humanidad hasta el final</li>
+        <li>"Todo está cumplido." — no es derrota. Es misión completada.</li>
+        <li>"Padre, en tus manos encomiendo mi espíritu." — confianza total</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-titulo">La pregunta difícil</div>
+    <div class="dinamica">
+      <span class="dinamica-badge">💬 Para dar espacio al diálogo</span>
+      <h4>"¿Para qué tenía que morir? ¿No podía perdonarnos y ya?"</h4>
+      <p>Esta pregunta es legítima. No la esquives. Acá hay varias respuestas posibles:</p>
+      <ul>
+        <li>Para los que están conociendo la fe: el amor verdadero se mide por lo que cuesta. No hay mayor demostración de amor que dar la vida.</li>
+        <li>Para los más formados en la fe: la teología de la redención habla de que el pecado tiene consecuencias reales. Alguien tuvo que cargar con ellas. Él eligió ser ese "alguien".</li>
+        <li>Para todos: la Cruz no es un castigo de un Padre enojado a un Hijo inocente. Es el Padre, en el Hijo, bajando al peor lugar de la existencia humana para no dejarnos solos ahí.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-titulo">Dato que nadie sabe</div>
+    <div class="dato-loco">
+      <span class="icono">🌑</span>
+      <div class="texto">Los evangelios dicen que hubo <strong>oscuridad de mediodía a las 3pm</strong> cuando Jesús murió. Hay registros históricos de escritores romanos y griegos de la época (Flegón de Tralles, Julio Africano) que mencionan un eclipse o fenómeno oscuro inusual ese período. <strong>La naturaleza pareció responder.</strong></div>
+    </div>
+    <div class="dato-loco">
+      <span class="icono">⛩️</span>
+      <div class="texto">El velo del Templo se rasgó de <strong>arriba a abajo</strong> cuando Jesús murió. Ese velo separaba el Sancta Sanctorum — donde solo el Sumo Sacerdote podía entrar una vez por año. El mensaje es brutal: <strong>el acceso a Dios ya no tiene intermediarios.</strong></div>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-titulo">Conexión directa con sus misiones</div>
+    <div class="dinamica">
+      <span class="dinamica-badge">💬 Para decirles</span>
+      <h4>El Viernes Santo en misiones: la Liturgia de la Pasión</h4>
+      <p>La celebración del Viernes Santo no tiene Misa — no se consagra. Es la única vez en el año. El sacerdote entra en silencio, se postra en el suelo. Ese gesto de tocar el piso con la frente lo dice todo.</p>
+      <p style="margin-top:0.75rem">Hay tres partes: la <strong>Liturgia de la Palabra</strong> (con la Pasión cantada), las <strong>intercesiones universales</strong> (rezan por todo el mundo, literalmente), y la <strong>adoración de la Cruz</strong>. Cuando vean a la gente de la comunidad acercarse a besar la Cruz, están viendo algo muy antiguo. Ese gesto lo hacen cristianos desde el siglo IV.</p>
+      <p style="margin-top:0.75rem" class="highlight">Ese día, en misiones, puede que vean personas llorar. No se asusten. Es normal. A veces la Cruz toca algo que nadie más puede tocar.</p>
+    </div>
+  </div>
+
+  <div class="cierre" style="border-top-color: var(--rojo-suave);">
+    <p class="cierre-frase">"Por sus llagas hemos sido curados."</p>
+    <span class="cierre-fuente">Isaías 53, 5 — escrito 700 años antes de la Crucifixión</span>
+  </div>
+</section>
+
+<!-- ===================== CHARLA 3: SÁBADO SANTO + VIGILIA ===================== -->
+<section id="charla3" class="charla charla-3">
+  <div class="charla-header">
+    <span class="charla-numero">Charla 03 / 03 — Sábado Santo y Vigilia Pascual</span>
+    <h2>El silencio<br>más ruidoso</h2>
+    <span class="charla-emoji">🌑🕯️🌊🔥</span>
+    <div class="charla-tiempo">⏱ 20–30 min — Esta es la charla más importante. Tómala con calma.</div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-titulo">Arranque</div>
+    <div class="pregunta-lanzadera">
+      <span class="q-label">Pregunta para tirar al grupo</span>
+      <p>"¿Cómo es para ustedes la espera? ¿Se les da bien esperar o son de los que odian esperar?"</p>
+    </div>
+    <div class="bloque">
+      <p>Conectás: <em class="highlight">"El Sábado Santo es el día del silencio. El día en que Dios está muerto. Los discípulos no saben lo que nosotros ya sabemos. Para ellos, todo terminó."</em></p>
+      <p>Agregás: <em>"Pero nosotros vivimos ese Sábado Santo todo el tiempo — cada vez que esperamos que algo cambie y nada parece moverse. Cada vez que rezamos y sentimos que nadie escucha."</em></p>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-titulo">El Sábado Santo: lo que nadie explica</div>
+    <div class="bloque">
+      <h4>😶 El día sin celebración</h4>
+      <p>El Sábado Santo es el único día del año litúrgico en que no hay Misa, no hay Eucaristía, no hay nada. Los sagrarios están vacíos. Los altares, desnudos. Las imágenes, cubiertas.</p>
+      <p>Es el día del duelo. Del "¿y ahora qué?". Del miedo de los discípulos encerrados con llave.</p>
+      <p class="highlight">La Iglesia propone algo valiente: quedarse en el silencio. No resolver el dolor demasiado rápido.</p>
+    </div>
+
+    <div class="dato-loco">
+      <span class="icono">🏛️</span>
+      <div class="texto">El Credo dice que Jesús <strong>"descendió a los infiernos"</strong>. No al infierno del castigo, sino al <em>Sheol</em> hebreo — el lugar de los muertos. La tradición cristiana enseña que Cristo, en ese Sábado Santo, fue a buscar a todos los que murieron antes de Él. <strong>Nadie quedó afuera de su amor.</strong></div>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-titulo">🔥 La Vigilia Pascual: la noche más importante del año</div>
+    <div class="bloque">
+      <h4>Por qué es la "madre de todas las vigilias"</h4>
+      <p>San Agustín la llamó la <em>mater omnium vigiliarum</em> — la madre de todas las vigilias. Es la noche en que la Iglesia no duerme. Históricamente duraba toda la noche, de puesta de sol al amanecer.</p>
+      <p>Tiene <strong>cuatro partes</strong> que no son random — cada una cuenta algo:</p>
+    </div>
+
+    <div class="pizarron">
+      <div class="pizarron-item"><span class="key">1.</span> Liturgia de la Luz — el fuego nuevo, el cirio pascual, el Exultet</div>
+      <div class="pizarron-item"><span class="key">2.</span> Liturgia de la Palabra — 7 lecturas del Antiguo + 2 del Nuevo Testamento</div>
+      <div class="pizarron-item"><span class="key">3.</span> Liturgia Bautismal — los catecúmenos entran a la Iglesia</div>
+      <div class="pizarron-item"><span class="key">4.</span> Liturgia Eucarística — primera Misa de Resurrección</div>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-titulo">Los símbolos — esto es lo que van a ver</div>
+
+    <div class="bloque">
+      <h4>🔥 El Fuego Nuevo</h4>
+      <p>Todo empieza afuera, en la oscuridad. Se enciende fuego desde piedra y pedernal — fuego nuevo, no rescatado de ayer. Símbolo de que algo radicalmente nuevo está comenzando.</p>
+      <p>Del fuego nuevo se enciende el cirio pascual, que entra a la iglesia oscura con el canto: <em>"Lumen Christi — Deo gratias."</em> Luz de Cristo. Gracias a Dios. Se va repitiendo mientras cada persona enciende su vela del cirio.</p>
+    </div>
+
+    <div class="bloque">
+      <h4>📜 El Exultet: el poema más antiguo de la liturgia</h4>
+      <p>Es un himno enorme, cantado, que celebra la noche. Tiene una frase que siempre genera ruido: <em class="highlight">"¡Feliz culpa la de Adán, que mereció tal Redentor!"</em></p>
+      <p>¿Qué? ¿Feliz culpa? Sí — la tradición cristiana dice que si no hubiera habido pecado, no habríamos conocido la misericordia. El mal no gana la última palabra. Nunca.</p>
+    </div>
+
+    <div class="bloque">
+      <h4>🌊 El Bautismo y la renovación de las promesas</h4>
+      <p>Si hay catecúmenos (personas que se están bautizando esa noche), esto es el climax de la celebración. Adultos que eligieron ser cristianos. Muchos se prepararon un año.</p>
+      <p>Después, todos los que ya están bautizados renuevan sus promesas. El sacerdote asperja con agua bendita — no como "ducha mística", sino como recordatorio: <em>"Ya fuiste bautizado. Ya sos de Cristo. Acordate."</em></p>
+    </div>
+
+    <div class="bloque">
+      <h4>🔔 El Aleluya: el grito que esperaron todo el año</h4>
+      <p>Durante toda la Cuaresma, el Aleluya está prohibido. Cuarenta días sin decirlo. Y en la Vigilia, justo antes del Evangelio, el cantor lo canta solo, una vez. Y la asamblea explota.</p>
+      <p class="highlight">Hay personas en las comunidades que van a la Vigilia solo por ese momento. Cuarenta días esperando ese Aleluya.</p>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-titulo">Conexión directa con sus misiones</div>
+    <div class="dinamica">
+      <span class="dinamica-badge">💬 Lo más importante que podés decirles</span>
+      <h4>Su rol en la Vigilia Pascual</h4>
+      <p>No van como turistas a ver una celebración linda. Van como parte de la comunidad. Eso cambia todo.</p>
+      <ul style="margin-top:1rem">
+        <li>Cuando enciendan su vela del fuego nuevo: esa llama viene del cirio, que viene del fuego nuevo. Son parte de una cadena que empieza esa noche.</li>
+        <li>Si hay bautizados esa noche: son testigos de algo que le cambia la vida a alguien. Estén atentos.</li>
+        <li>Cuando el sacerdote tire el agua: no corran. Recíbanla. Es el punto.</li>
+        <li>El Aleluya: cántenlo aunque no sepan la melodía. Es un grito, no un concierto.</li>
+      </ul>
+      <p style="margin-top:1.25rem" class="highlight">La comunidad que les toque los va a necesitar ahí presentes, cantando, rezando, encendidos. No es el momento de mirar el celular.</p>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-titulo">Dinámica final para los tres días</div>
+    <div class="dinamica">
+      <span class="dinamica-badge">✏️ Actividad para hacer con el grupo</span>
+      <h4>La pregunta que se llevan a misiones</h4>
+      <p>Dales un minuto de silencio y pediles que escriban en un papel (o que lo piensen nomás):</p>
+      <ul>
+        <li>¿Qué del Triduo me interpela personalmente?</li>
+        <li>¿Qué me gustaría que la comunidad que me toque viva en esta Vigilia?</li>
+        <li>¿Qué voy a hacer yo para que eso pase?</li>
+      </ul>
+      <p style="margin-top:0.75rem">Si el grupo es chico y hay confianza, podés abrir para que alguien comparta. Si es grande, alcanza con el silencio.</p>
+    </div>
+  </div>
+
+  <div class="cierre" style="border-top-color: #8b5f9e;">
+    <p class="cierre-frase">"¿Por qué buscan entre los muertos al que está vivo?"</p>
+    <span class="cierre-fuente">Lucas 24, 5 — lo que dijeron los ángeles al amanecer del domingo</span>
+  </div>
+</section>
+
+<!-- ===================== BONUS: DOMINGO DE PASCUA ===================== -->
+<section id="charla4" class="charla charla-4">
+  <div class="charla-header">
+    <span class="charla-numero">Bonus — Domingo de Pascua</span>
+    <h2>¿Y si es verdad?</h2>
+    <span class="charla-emoji">☀️🌅🏃</span>
+    <div class="charla-tiempo">⏱ 10–15 min — Para usar el Domingo de Pascua mismo, si pueden</div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-titulo">La pregunta más importante</div>
+    <div class="pregunta-lanzadera">
+      <span class="q-label">Para abrir</span>
+      <p>"Si la resurrección de Jesús fuera verdad — no metáfora, no símbolo, sino verdad histórica real — ¿cambiaría algo en cómo viven su vida?"</p>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-titulo">Por qué importa que sea real</div>
+    <div class="bloque">
+      <h4>San Pablo lo dice sin rodeos</h4>
+      <p>En 1 Corintios 15, Pablo escribe: <em>"Si Cristo no resucitó, vana es nuestra fe."</em> No dice "si la resurrección no es un buen símbolo". Dice: si no pasó, todo esto no vale nada.</p>
+      <p class="highlight">El cristianismo no es una filosofía de vida ni un código de ética. Es la afirmación de que un hombre muerto volvió a vivir. Eso o es la cosa más importante que pasó en la historia, o es la mentira más grande.</p>
+    </div>
+
+    <div class="dato-loco">
+      <span class="icono">📜</span>
+      <div class="texto">Los primeros testigos de la Resurrección según los Evangelios fueron <strong>mujeres</strong>. En la cultura judía del siglo I, el testimonio de una mujer no valía legalmente. Si alguien hubiera inventado la historia, no habría puesto mujeres como testigos principales. <strong>Nadie inventa un relato poniendo como protagonistas a las personas menos creíbles para su audiencia.</strong></div>
+    </div>
+
+    <div class="bloque">
+      <h4>Los apóstoles: el argumento de la transformación</h4>
+      <p>El Viernes Santo todos escaparon. Pedro negó a Jesús tres veces. Estaban encerrados con miedo. Cuarenta días después estaban predicando en público, enfrentando la muerte, muriendo todos (menos Juan) por afirmar que habían visto a Jesús vivo.</p>
+      <p class="highlight">La gente muere por cosas que cree verdaderas. Nadie muere por algo que sabe que es mentira.</p>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-titulo">Para cerrar el Triduo</div>
+    <div class="dinamica">
+      <span class="dinamica-badge">💬 Cierre para decirles</span>
+      <h4>Lo que se llevan de estas charlas</h4>
+      <p>Viernes, Sábado, Domingo — no son rituales antiguos que la Iglesia repite por costumbre. Son la historia de Dios bajando al peor lugar de la existencia humana (la muerte, la injusticia, el abandono) para decirles: <em>ahí también estoy. Ahí también gano.</em></p>
+      <p style="margin-top:0.75rem">Cuando estén en misiones y celebren el Triduo con esa comunidad, van a estar parados en 2000 años de personas que creyeron lo mismo que ustedes: que esa historia es verdadera, y que cambia todo.</p>
+      <p style="margin-top:0.75rem" class="highlight">No sean espectadores. Sean parte. La Vigilia Pascual los necesita presentes.</p>
+    </div>
+  </div>
+
+  <div class="cierre" style="border-top-color: var(--verde-resurreccion);">
+    <p class="cierre-frase">"¡Aleluya! Cristo ha resucitado. Verdaderamente ha resucitado."</p>
+    <span class="cierre-fuente">Aclamación pascual — siglos I en adelante, hasta hoy</span>
+  </div>
+</section>
+
+<script>
+  function mostrar(id) {
+    document.getElementById('home').style.display = 'none';
+    document.querySelectorAll('.charla').forEach(c => c.classList.remove('activa'));
+    document.getElementById(id).classList.add('activa');
+    document.getElementById('backBtn').classList.add('visible');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function volverHome() {
+    document.getElementById('home').style.display = '';
+    document.querySelectorAll('.charla').forEach(c => c.classList.remove('activa'));
+    document.getElementById('backBtn').classList.remove('visible');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
